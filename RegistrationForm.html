@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>EPAM Registration Page</title>
+    <script type="text/javascript">
+        
+        function validform() {
+
+            var name = document.forms["my-form"]["full_name"].value;
+            var email = document.forms["my-form"]["email_address"].value;
+            var username = document.forms["my-form"]["username"].value;
+            var password = document.forms["my-form"]["password"].value;
+            var confirm_password = document.forms["my-form"]["confirm_password"].value;
+            var phone_number = document.forms["my-form"]["phone_number"].value;
+            var date_of_birth = document.forms["my-form"]["date_of_birth"].value;            
+            var address = document.forms["my-form"]["address"].value;
+            var age = document.forms["my-form"]["age"].value;
+        
+            result = checkName(name);
+            result += checkEmail(email);
+            result += checkUsername(username);
+            result += checkPassword(password, confirm_password);
+            result += checkDate(date_of_birth);
+            result += checkAddress(address);
+
+
+            if(result > 0) {
+                return false;
+            } else {
+                document.writeln("You have Successfully Registered ");
+                return true;
+            }
+
+            
+        }
+
+        function checkName(name) {
+            if(name.length < 4 || name.length > 25) {
+                //document.writeln("Successfully Registered");
+                document.getElementById('error-name').innerHTML = "Please enter the name with atleast 4 characters and atmost 25 characters";
+                return 1;
+            } else {
+                document.getElementById('error-name').innerHTML = "";
+                return 0;
+            }
+        }
+        function checkEmail(email) {
+            if(email.length == 0 || username == null) {
+                document.getElementById('error-email').innerHTML = "Please enter email address ";
+                return 1;
+            } else if(!email.includes("@gmail.com")) {
+                document.getElementById('error-email').innerHTML = "Please enter valid email address ";
+                return 1;
+            } else {
+                document.getElementById('error-email').innerHTML = "";
+                return 0;
+            }
+        }
+
+        function checkUsername(username) {
+            if(username.length == 0 || username == null) {
+                document.getElementById('error-username').innerHTML = "Please enter username";
+                return 1;
+            } else if(!hasLowerCase(username)) {
+                document.getElementById('error-username').innerHTML = "Please enter username with atleast 1 lowercase letter ";
+                return 1;
+            } else if(!hasUpperCase(username)) {
+                document.getElementById('error-username').innerHTML = "Please enter username with atleast 1 uppercase letter ";
+                return 1;
+            } else if(!hasDigit(username)) {
+                document.getElementById('error-username').innerHTML = "Please enter username with atleast 1 digit ";
+                return 1;
+            } else {
+                document.getElementById('error-username').innerHTML = "";
+                return 0;
+            }   
+        }
+
+        function checkPassword(password, confirm_password) {
+            if(password.length < 6) {
+                document.getElementById('error-password').innerHTML = "Please enter password with atleast 6 characters ";
+                return 1;
+            } else if(!(password == confirm_password)) {
+                document.getElementById('error-confirmpassword').innerHTML = "Please enter the password same as created password ";
+                return 1;
+            } else {
+                document.getElementById('error-password').innerHTML = "";
+                document.getElementById('error-confirmpassword').innerHTML = "";
+                return 0;
+            }
+        }
+
+        function checkDate(date_of_birth) {
+            if(date_of_birth <= 0 || date_of_birth == null) {
+                document.getElementById('error-date').innerHTML = "Please enter your date of birth ";
+                return 1;
+            } else {
+                document.getElementById('error-date').innerHTML = "";
+                return 0;
+            }
+        }
+
+        function checkAddress(address) {
+            if(address.length <= 0 || address == null) {
+                document.getElementById('error-address').innerHTML = "Please enter address ";
+                return 1;
+            } else {
+                document.getElementById('error-address').innerHTML = "";
+                return 0;
+            }
+        }
+
+        function hasLowerCase(str) {
+            return (/[a-z]/.test(str));
+        }
+
+        function hasUpperCase(str) {
+            return (/[A-Z]/.test(str));
+        }
+
+        function hasDigit(str) {
+            return (/[0-9]/.test(str));
+        }
+
+    </script>
+    <style type="text/css">
+        body{
+        margin: 0;
+        font-size: .9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #212529;
+        text-align: left;
+        background-color: #f5f8fa;
+    }
+
+    .navbar-epam
+    {
+        box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    }
+
+    .navbar-brand , .nav-link, .my-form, .login-form
+    {
+        font-family: Raleway, sans-serif;
+    }
+
+    .my-form
+    {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .my-form .row
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .login-form
+    {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .login-form .row
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-epam">
+    <div class="container">
+    <a class="navbar-brand" href="#">EPAM</a>
+    </div>
+</nav>
+
+<main class="my-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Register</div>
+                        <div class="card-body">
+                            <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                                <div class="form-group row">
+                                    <label for="full_name" class="col-md-4 col-form-label text-md-right">Full Name *</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="full_name" class="form-control" name="full_name" placeholder="Enter your full name" >
+                                        <span id="error-name" style="color:red" ></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address *</label>
+                                    <div class="col-md-6">
+                                        <input type="email" id="email_address" class="form-control" name="email_address" placeholder="Enter your email id" >
+                                        <span id="error-email" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="username" class="col-md-4 col-form-label text-md-right">User Name *</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="username" class="form-control" name="username" placeholder="Enter your username" >
+                                        <span id="error-username" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password *</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="password" class="form-control" name = "password" placeholder="Enter your password" >
+                                        <span id="error-password" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="confirm_password" class="col-md-4 col-form-label text-md-right">Confirm Password *</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="confirm_password" class="form-control" name = "confirm_password" placeholder="Re-enter your password" >
+                                        <span id="error-confirmpassword" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number *</label> 
+                                    <span id="error-phone"></span>
+                                    <div class="col-md-6">
+                                        <input type="tel" id="phone_number" class="form-control" name = "phone_number" 
+                                        pattern="[0-9]{10}" placeholder="Enter your phone number in 0123456789 format" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">Date of Birth *</label>
+                                    <div class="col-md-6">
+                                        <input type="date" id="date_of_birth" class="form-control" name = "date_of_birth" placeholder="Enter your date of birth" >
+                                        <span id="error-date" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address *</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="address" class="form-control" name = "address" placeholder="Enter your address" >
+                                        <span id="error-address" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="age" class="col-md-4 col-form-label text-md-right">Age</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="age" class="form-control" name = "age">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="age" class="col-md-4 col-form-label text-md-right">Gender</label>
+                                    <div class="col-md-6">
+                                        <!-- <input type="text" id="age" class="form-control" name = "age"> -->
+                                         <input type="radio" id="male" name="gender" value="male">
+                                        <label for="male">Male</label><br>
+                                        <input type="radio" id="female" name="gender" value="female">
+                                        <label for="female">Female</label><br>
+                                        <input type="radio" id="other" name="gender" value="other">
+                                        <label for="other">Other</label> 
+                                    </div>
+                                </div>
+                                    
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                        Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>
